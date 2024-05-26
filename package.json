@@ -1,0 +1,16 @@
+{
+  "name": "spa-office",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "express": "^4.19.2",
+    "prisma": "^5.14.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.1"
+  }
+}
+
