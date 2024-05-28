@@ -22,9 +22,7 @@ model Users {
   createdAt DateTime @default(now()) @map("createdAt")
   updatedAt DateTime @updatedAt @map("updatedAt")
   
-
-  Posts Posts[]
-  
+  Posts     Posts[]
   
   @@map("Users")
 }
@@ -36,10 +34,10 @@ model Posts {
   content   String    @db.Text @map("content")
   status    String    @default("APPLY") @map("status")
 
-  createdAt DateTime  @default(now()) @map("cretedAt")
+  createdAt DateTime  @default(now()) @map("createdAt")
   updatedAt DateTime  @updatedAt @map("updatedAt")
 
-  User Users @relation(fields: [UserId], references: [userId], onDelete: Cascade)
+  User      Users     @relation(fields: [UserId], references: [userId], onDelete: Cascade)
 
   @@map("Posts")
 }
