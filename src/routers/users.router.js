@@ -2,14 +2,15 @@ import express from 'express';
 import { prisma } from '../utils/prisma.util.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import loginmiddleware from '../middlewares/require-access-token.middleware.js'; 
+import  authMiddleware from '../middlewares/require-access-token.middleware.js';
+ 
 
 
 const router = express.Router();
 
 
 router.post('/sign-up', async (req, res, next) => {
-   
+   try{
         const { email, password, passwordConfirm, name } = req.body;
 
         if (!email) {
@@ -69,13 +70,17 @@ router.post('/sign-up', async (req, res, next) => {
             role: newUser.role,
             createdAt: newUser.createdAt,
             updatedAt: newUser.updatedAt
-        });
+        }); } catch (err) {
+            next(err);
+        }
     });
 
 
 
 /** 로그인 API **/
 router.post('/sign-in', async (req, res, next) => {
+   try{
+   
     const { email, password } = req.body;
     const user = await prisma.users.findFirst({ where: { email } });
     
@@ -107,17 +112,25 @@ router.post('/sign-in', async (req, res, next) => {
   
     res.header('authorization', `Bearer ${token}`);
     return res.status(200).json({ message: '로그인 성공', token });
-  });
+  } catch(error) {
+    next(error);
+  }
+});
 
 
-  router.get('/profile', loginmiddleware, async (req, res, next) => {
-    console.log(req.user)
+  router.get('/profile', authMiddleware, async (req, res, next) => {
+   try{
     const { userId, email, name, role, createdAt, updatedAt } = req.user;
 
     res.status(200).json({ userId, email, name, role, createdAt, updatedAt});
 
-  });
+  }  catch(error) {
+    next(error);
+  }
+});
 
+
+ 
 
 export default router;
 
