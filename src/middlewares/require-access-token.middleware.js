@@ -13,7 +13,7 @@ export default async function (req, res, next) {
     const [tokenType, token] = authorization.split(' ');
 
     if (tokenType !== 'Bearer')
-      throw new Error('토큰 타입이 일치하지 않습니다.');
+      throw new Error('지원하지 않는 인증 방식입니다.');
 
     const decodedToken = jwt.verify(token, 'customized_secret_key');
     const userId = decodedToken.userId;
