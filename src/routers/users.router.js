@@ -110,7 +110,7 @@ router.post('/sign-in', async (req, res, next) => {
   
   
     res.header('authorization', `Bearer ${token}`);
-    return res.status(200).json({ message: '로그인 성공', token });
+    return res.status(200).json({ message: '로그인에 성공하였습니다.', token });
   } catch(error) {
     next(error);
   }
@@ -121,7 +121,7 @@ router.post('/sign-in', async (req, res, next) => {
    try{
     const { userId, email, name, role, createdAt, updatedAt } = req.user;
 
-    res.status(200).json({ userId, email, name, role, createdAt, updatedAt});
+    res.status(200).json({ message:'사용자 인증에 성공했습니다.', userId, email, name, role, createdAt, updatedAt});
 
   }  catch(error) {
     next(error);
