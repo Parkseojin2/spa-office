@@ -2,7 +2,7 @@
 import express from 'express'
 import { prisma } from '../utils/prisma.util.js';
 import authMiddleware from '../middlewares/require-access-token.middleware.js';
-import { PrismaClientRustPanicError } from '@prisma/client/runtime/react-native.js';
+
 
 
 const router = express.Router();
@@ -35,7 +35,7 @@ const router = express.Router();
 
     });
 
-    return res.status(201).json({
+    return res.status(201).json({ message: '이력서 등록이 완료되었습니다.',
         postId: post.postId,
         userId:post.UserId,
         title: post.title,
@@ -137,7 +137,7 @@ router.patch('/:postId', authMiddleware, async (req, res, next) => {
         if (content) updateData.content = content;
 
        
-        const updatedResume = await prisma.posts.update({
+        const updatedResume = await prisma.posts.update({ message: '수정이 완료 되었습니다.',
             where: { postId: +postId },
             data: updateData,
         });
